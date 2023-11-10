@@ -16,8 +16,8 @@ function M.prequire(...)
   return nil
 end
 
-function M.lazy_is_plugin_loaded(plugin)
-  return vim.tbl_get(require("lazy.core.config").plugins, plugin) ~= nil
+function M.is_plugin_loaded(plugin)
+  return vim.tbl_get(require('lazy.core.config').plugins, plugin) ~= nil
 end
 
 -- function M.opt_toggle(opt)

@@ -64,9 +64,3 @@ end
 if require('custom.utils').is_vscode() then
   require('custom.keymaps.vscode-only')
 end
-
-local prequire = require('custom.utils').prequire
-
-if prequire('telescope') then
-  require('custom.keymaps.telescope')
-end
