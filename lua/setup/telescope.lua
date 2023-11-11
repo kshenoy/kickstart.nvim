@@ -17,7 +17,7 @@ local function setup_keymaps()
   map('n', '<Plug>(leader-file-map)d', tb.find_files, { desc = '[f]ind files in [d]ir' })
 
   -- Try to find files at the VCS root and default to find_files
-  map('n', '<Plug>(leader-vcs-map)f', function()
+  map('n', '<Plug>(leader-file-map)f', function()
     local vcs = require('utils.vcs')
     if vcs.find_git_root() then
       return tb.git_files()
@@ -25,7 +25,7 @@ local function setup_keymaps()
       return tb.vim_p4_files()
     end
     return tb.find_files
-  end, { desc = '[f]cs [f]ile' })
+  end, { desc = '[f]ind [f]ile' })
 
   map('n', '<Plug>(leader-file-map)r', tb.oldfiles,   { desc = '[f]iles opened [r]ecently' })
   --]]
