@@ -3,7 +3,7 @@ return { -- Colorscheme
   name = "catppuccin",
 
   cond = function()
-    return require('custom.utils').is_neovim()
+    return require('utils').is_neovim()
   end,
 
   config = function()

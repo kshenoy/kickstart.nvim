@@ -57,10 +57,10 @@ map('n', '<Leader>mf', "<Cmd>call utils#FillTW()<CR>", {silent=true})
 
 --[[ Plugin related keymaps ]]------------------------------------------------------------------------------------------
 -- Load keymaps that are specific to Neovim
-if require('custom.utils').is_neovim() then
-  require('custom.keymaps.neovim-only')
+if require('utils').is_neovim() then
+  require('keymaps.neovim-only')
 end
 
-if require('custom.utils').is_vscode() then
-  require('custom.keymaps.vscode-only')
+if require('utils').is_vscode() then
+  require('keymaps.vscode-only')
 end
