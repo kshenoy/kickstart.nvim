@@ -8,7 +8,12 @@ return {
   opts = {
     options = {
       custom_commentstring = function()
-        return require("ts_context_commentstring.internal").calculate_commentstring() or vim.bo.commentstring
+        local ts_context_commentstring = require('custom.utils').prequire("ts_context_commentstring.internal")
+        if ts_context_commentstring then
+          return ts_context_commentstring.calculate_commentstring() or vim.bo.commentstring
+        else
+          return vim.bo.commentstring
+        end
       end,
     },
   },

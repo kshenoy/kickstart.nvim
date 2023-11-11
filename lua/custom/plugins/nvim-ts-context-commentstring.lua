@@ -1,6 +1,7 @@
 return {
   "JoosepAlviste/nvim-ts-context-commentstring",
 
+  enabled = false,
   cond = function()
     return require('custom.utils').is_neovim()
   end,
