@@ -14,7 +14,19 @@ local function setup_keymaps()
   --]]
 
   ---[[ File bindings
-  map('n', '<Plug>(leader-file-map)f', tb.find_files, { desc = '[f]ind [f]iles' })
+  map('n', '<Plug>(leader-file-map)d', tb.find_files, { desc = '[f]ind files in [d]ir' })
+
+  -- Try to find files at the VCS root and default to find_files
+  map('n', '<Plug>(leader-vcs-map)f', function()
+    local vcs = require('utils.vcs')
+    if vcs.find_git_root() then
+      return tb.git_files()
+    elseif vcs.find_p4_root() then
+      return tb.vim_p4_files()
+    end
+    return tb.find_files
+  end, { desc = '[f]cs [f]ile' })
+
   map('n', '<Plug>(leader-file-map)r', tb.oldfiles,   { desc = '[f]iles opened [r]ecently' })
   --]]
 
@@ -40,7 +52,15 @@ local function setup_keymaps()
   --]]
 
   ---[[ VCS bindings
-  map('n', '<Plug>(leader-vcs-map)f', tb.git_files,           { desc = '[v]cs [f]ile'          })
+  map('n', '<Plug>(leader-vcs-map)f', function()
+    local vcs = require('utils.vcs')
+    if vcs.find_git_root() then
+      return tb.git_files()
+    elseif vcs.find_p4_root() then
+      return tb.vim_p4_files()
+    end
+  end, { desc = '[v]cs [f]ile' })
+
   map('n', '<Plug>(leader-vcs-map)c', tb.git_bcommits,        { desc = '[v]cs [c]ommits (buf)' })
   map('n', '<Plug>(leader-vcs-map)C', tb.git_commits,         { desc = '[v]cs [C]ommits (all)' })
   map('n', '<Plug>(leader-vcs-map)s', tb.git_status,          { desc = '[v]cs [s]tatus'        })
