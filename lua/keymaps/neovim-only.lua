@@ -13,7 +13,13 @@ map('n', '<Plug>(leader-file-map)y', function()
 end, {desc="Copy file path"})
 
 
---[[ Files ------------------------------------------------------------------------------------------------------------
+-- [[ Code -------------------------------------------------------------------------------------------------------------
+map('n', '<Plug>(leader-code-map)r', vim.lsp.buf.rename,      { desc = '[c]ode [r]ename' })
+map('n', '<Plug>(leader-code-map)a', vim.lsp.buf.code_action, { desc = '[c]ode [a]ction' })
+--]]
+
+
+--[[ Files -------------------------------------------------------------------------------------------------------------
 local fzf_lua_p4 = require('neovim-only.fzf-lua.perforce')
 
 -- Checkout the file if in a VCS
@@ -22,15 +28,6 @@ map('n', '<Plug>(leader-vcs-map)e', function()
     vim.cmd "!p4 edit %"
   end
 end, {desc = "Checkout file"})
-
-
-map('n', '<Plug>(leader-vcs-map)f', function()
-  if require('fzf-lua.path').is_git_repo({}, true) then
-    return require('fzf-lua').git_files()
-  elseif fzf_lua_p4.is_p4_repo({}, true) then
-    return fzf_lua_p4.files()
-  end
-end, {desc="Find file"})
 
 
 map('n', '<Plug>(leader-vcs-map)s', function()
