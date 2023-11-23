@@ -26,4 +26,12 @@ end
 --   vim.notify(o.['_name'] .. " " .. (o:get() and "Enabled" or "Disabled"))
 -- end
 
+function M.fill_width()
+  local fill_char = vim.fn.nr2char(vim.fn.getchar())
+  local fill_amt = vim.o.textwidth - vim.api.nvim_get_current_line():len()
+  local fill_str = string.rep(fill_char, fill_amt)
+  local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+  vim.api.nvim_buf_set_text(0, row - 1, col, row - 1, col, {fill_str})
+end
+
 return M

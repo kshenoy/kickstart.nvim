@@ -52,7 +52,7 @@ map('n', 'cg*', 'g*<C-O>cgn')
 
 --[[ Misc ]]------------------------------------------------------------------------------------------------------------
 -- Fill Text Width
-map('n', '<Leader>mf', "<Cmd>call utils#FillTW()<CR>", {silent=true})
+map('n', '<Leader>mf', require('utils').fill_width, {silent=true})
 
 
 --[[ Plugin related keymaps ]]------------------------------------------------------------------------------------------

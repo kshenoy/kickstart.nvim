@@ -6,7 +6,7 @@ vim.o.autochdir = true                                                          
 
 
 --[[ Tags ]]------------------------------------------------------------------------------------------------------------
-vim.opt.tags = "./tags;,./.tags;"
+vim.opt.tags = "./tags;,./.tags;"                                               -- list of file names to search for tags
 
 
 --[[ Displaying text ]]-------------------------------------------------------------------------------------------------
@@ -17,12 +17,14 @@ vim.o.sidescroll    = 3                                              -- minimal 
 vim.o.sidescrolloff = 10                                         -- no. of columns to show around the cursor for context
 vim.o.cmdheight     = 2        -- number of screen lines to use for the command-line. Helps avoiding 'hit-enter' prompts
 vim.o.list          = true                                                           -- make it easier to see whitespace
-vim.opt.listchars   = {tab='» ', extends='›', precedes='‹', nbsp='·', trail='·'}
-vim.o.conceallevel  = 2
-vim.o.concealcursor = "nc"
+vim.opt.listchars   = {tab='» ', extends='›', precedes='‹', nbsp='·', trail='·'}   -- list of strings used for list mode
+vim.o.number = false                                                                          -- don't show line numbers
+vim.o.conceallevel  = 2                                                           -- concealed text is completely hidden
+vim.o.concealcursor = "nc"                           -- conceal text in the cursor line in normal and command-line modes
 
 
 --[[ Syntax, highlighting and spelling ]]-------------------------------------------------------------------------------
+vim.o.hlsearch      = true                                     -- highlight all matches for the last used search pattern
 vim.o.termguicolors = true                                                         -- enable 24-bit RGB color in the TUI
 vim.o.cursorline    = true                                                    -- highlight the screen line of the cursor
 vim.o.colorcolumn   = "+1"                                                         -- highlight Column 121 (textwidth+1)
@@ -30,8 +32,8 @@ vim.o.colorcolumn   = "+1"                                                      
 
 --[[ Multiple windows, tab pages ]]-------------------------------------------------------------------------------------
 vim.o.laststatus = 3                                                                         -- enable global statusline
-vim.o.splitbelow = true
-vim.o.splitright = true
+vim.o.splitbelow = true                                                       -- new window is put below the current one
+vim.o.splitright = true                                             -- new window is put to the right of the current one
 
 
 --[[ Using the mouse ]]-------------------------------------------------------------------------------------------------
@@ -39,14 +41,16 @@ vim.o.mouse = "ar"                                                              
 
 
 --[[ Messages and Info ]]-----------------------------------------------------------------------------------------------
-vim.o.showmode = false
-vim.o.number = false
-vim.o.number = false
+vim.o.showmode = false                                                    -- display the current mode in the status line
+
+
+--[[ Selecting text ]]--------------------------------------------------------------------------------------------------
+vim.opt.clipboard:remove('unnamedplus')             -- do not automatically add all yanked/deleted text to the clipboard
 
 
 --[[ Editing text ]]----------------------------------------------------------------------------------------------------
-vim.o.undofile  = true
-vim.o.textwidth = 120
+vim.o.undofile  = true                                                    -- automatically save and restore undo history
+vim.o.textwidth = 120                                                         -- line length above which to break a line
 vim.opt.completeopt:append('menuone')                            -- use the popup menu also when there is only one match
 vim.opt.completeopt:append('noinsert')                           -- do not insert any text for a match until I select it
 vim.opt.completeopt:append('noselect')                                -- do not select a match in the menu automatically
@@ -54,17 +58,16 @@ vim.o.showmatch  = true                                                         
 
 
 --[[ Tabs and indenting ]]----------------------------------------------------------------------------------------------
-vim.o.expandtab   = true
-vim.o.shiftwidth  = 2
+vim.o.expandtab   = true                                                        -- expand <Tab> to spaces in Insert mode
+vim.o.shiftwidth  = 2                                             -- number of spaces used for each step of (auto)indent
 vim.o.softtabstop = -1                                                                      -- Use value from shiftwidth
-vim.o.shiftround  = true
+vim.o.shiftround  = true                                                      -- round to 'shiftwidth' for "<<" and ">>"
 
 
 --[[ Reading and writing files, swap file ]]----------------------------------------------------------------------------
-vim.o.backup   = true
-vim.opt.backupdir:remove(".")
-vim.o.swapfile = false
-vim.o.updatetime = 250
+vim.o.backup   = true                                                          -- keep a backup after overwriting a file
+vim.opt.backupdir:remove(".")                                              -- list of directories to put backup files in
+vim.o.swapfile = false                                                                        -- don't create swap files
 
 
 --[[ Command line editing ]]--------------------------------------------------------------------------------------------
@@ -78,7 +81,3 @@ if (vim.fn.executable('rg')) then
   vim.opt.grepformat = "%f:%l:%m"
   vim.opt.grepprg    = "rg --vimgrep --smart-case"
 end
-
-
---[[ Misc ]]------------------------------------------------------------------------------------------------------------
-vim.opt.clipboard:append('unnamedplus')
