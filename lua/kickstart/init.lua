@@ -226,8 +226,7 @@ require('lazy').setup({
   { 'numToStr/Comment.nvim',
 
     cond = function()
-      local utl = require('utils')
-      return utl.is_neovim() and not utl.is_plugin_loaded('nvim-treesitter')
+      return require('utils').is_neovim()
     end,
 
     opts = {}
@@ -260,12 +259,12 @@ require('lazy').setup({
   {
     -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
-    enabled = false,
     cond = function()
       return require('utils').is_neovim()
     end,
     dependencies = {
       'nvim-treesitter/nvim-treesitter-textobjects',
+      'JoosepAlviste/nvim-ts-context-commentstring',
     },
     build = ':TSUpdate',
   },

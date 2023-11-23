@@ -1,12 +1,7 @@
 return {
-  "JoosepAlviste/nvim-ts-context-commentstring",
+  'JoosepAlviste/nvim-ts-context-commentstring',
 
-  enabled = false,
-  cond = function()
-    return require('utils').is_neovim()
-  end,
-  lazy = true,
-
+  event = "VeryLazy",  -- loaded as a dependency of tree-sitter
   opts = {
     enable_autocmd = false,
   },
