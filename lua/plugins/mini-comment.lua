@@ -2,7 +2,8 @@ return {
   "echasnovski/mini.comment",
 
   cond = function()
-    return require('utils').is_neovim()
+    local utl = require('utils')
+    return utl.is_neovim() and utl.is_plugin_loaded('nvim-treesitter')
   end,
 
   opts = {

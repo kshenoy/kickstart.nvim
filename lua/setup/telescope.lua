@@ -24,7 +24,7 @@ local function setup_keymaps()
     elseif vcs.find_p4_root() then
       return tb.vim_p4_files()
     end
-    return tb.find_files
+    return tb.find_files()
   end, { desc = '[f]ind [f]ile' })
 
   map('n', '<Plug>(leader-file-map)r', tb.oldfiles,   { desc = '[f]iles opened [r]ecently' })

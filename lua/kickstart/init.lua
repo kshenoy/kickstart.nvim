@@ -223,7 +223,15 @@ require('lazy').setup({
   },
 
   -- "gc" to comment visual regions/lines
-  -- { 'numToStr/Comment.nvim', opts = {} },
+  { 'numToStr/Comment.nvim',
+
+    cond = function()
+      local utl = require('utils')
+      return utl.is_neovim() and not utl.is_plugin_loaded('nvim-treesitter')
+    end,
+
+    opts = {}
+  },
 
   -- Fuzzy Finder (files, lsp, etc)
   {
