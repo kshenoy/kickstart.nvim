@@ -229,6 +229,7 @@ require('lazy').setup({
       return require('utils').is_neovim()
     end,
 
+    event = "VeryLazy",
     opts = {}
   },
 
