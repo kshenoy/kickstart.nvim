@@ -437,8 +437,7 @@ end
 
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
-local ts = prequire('nvim-treesitter')
-if ts then
+if prequire('nvim-treesitter') then
   -- Defer Treesitter setup after first render to improve startup time of 'nvim {filename}'
   vim.defer_fn(function()
     require('nvim-treesitter.install').compilers = { "gcc" }
@@ -498,15 +497,17 @@ if ts then
         },
         swap = {
           enable = true,
-          swap_next = {
-            ['<leader>a'] = '@parameter.inner',
-          },
-          swap_previous = {
-            ['<leader>A'] = '@parameter.inner',
-          },
+          -- swap_next = {
+          --   ['<leader>a'] = '@parameter.inner',
+          -- },
+          -- swap_previous = {
+          --   ['<leader>A'] = '@parameter.inner',
+          -- },
         },
       },
     }
+
+    require('setup.treesitter').override()
   end, 0)
 end
 
