@@ -20,11 +20,11 @@ function M.is_plugin_loaded(plugin)
   return vim.tbl_get(require('lazy.core.config').plugins, plugin) ~= nil
 end
 
--- function M.opt_toggle(opt)
---   local o = vim.opt[opt]
---   o = not o:get()
---   vim.notify(o.['_name'] .. " " .. (o:get() and "Enabled" or "Disabled"))
--- end
+function M.toggle_opt(option)
+  local o = vim.opt[option]:get()
+  vim.opt[option] = not o
+  vim.notify(option .. " " .. (o and "disabled" or "enabled"))
+end
 
 function M.fill_width()
   local fill_char = vim.fn.nr2char(vim.fn.getchar())
