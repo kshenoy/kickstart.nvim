@@ -46,7 +46,7 @@ function M.override()
         goto_next_start = {
           [']m'] = '@function.outer',
           [']]'] = '@class.outer',
-          ['],'] = '@parameter.outer',
+          ['],'] = '@parameter.inner',
         },
         goto_next_end = {
           [']M'] = '@function.outer',
@@ -55,7 +55,7 @@ function M.override()
         goto_previous_start = {
           ['[m'] = '@function.outer',
           ['[['] = '@class.outer',
-          ['[,'] = '@parameter.outer',
+          ['[,'] = '@parameter.inner',
         },
         goto_previous_end = {
           ['[M'] = '@function.outer',
