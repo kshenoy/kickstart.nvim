@@ -5,7 +5,10 @@
 
 local map = vim.keymap
 
+-- [[ GLOBAL ]]---------------------------------------------------------------------------------------------------------
 -- map.set('n', 'z=', '<Cmd>call VSCodeNotify("workbench.action.toggleSidebarVisibility")<CR>', {remap=true})
+map.set('n', '[d', '<Cmd>call VSCodeNotify("editor.action.marker.prev")<CR>', {remap=true})
+map.set('n', ']d', '<Cmd>call VSCodeNotify("editor.action.marker.next")<CR>', {remap=true})
 
 
 -- [[ LEADER ]]---------------------------------------------------------------------------------------------------------
@@ -71,7 +74,6 @@ local mapw = function(key, cmd)
   map.set('n', '<Plug>(leader-window-map)' .. key, '<Cmd>call VSCodeNotify("' .. cmd .. '")<CR>', {remap=true})
 end
 
-mapw('a',  'workbench.action.joinAllGroups')                                                      --  (u)nite all groups
 mapw('c',  'workbench.action.closeGroup')
 mapw('C',  'workbench.action.closeAllGroups')
 mapw('h',  'workbench.action.focusLeftGroup')
@@ -87,9 +89,10 @@ mapw('nh', 'workbench.action.newGroupLeft')
 mapw('nj', 'workbench.action.newGroupDown')
 mapw('nk', 'workbench.action.newGroupUp')
 mapw('nl', 'workbench.action.newGroupRight')
+mapw('u',  'workbench.action.joinAllGroups')                           --  (u)nite all groups
 mapw('w',  'workbench.action.navigateEditorGroups')
-mapw('z',  'workbench.action.toggleEditorWidths')                                        --  (z)oom in/out or maximi(z)e
-mapw('Z',  'workbench.action.maximizeEditor')                                  --  like zoom but gets rid of Primary Bar
+mapw('z',  'workbench.action.toggleEditorWidths')                      --  (z)oom in/out or maximi(z)e
+mapw('Z',  'workbench.action.maximizeEditor')                          --  like zoom but gets rid of Primary Bar
 mapw('=',  'workbench.action.evenEditorWidths')
 
 
@@ -194,8 +197,6 @@ local mapl = function(key, cmd)
 end
 
 mapl('p',  'workbench.actions.view.problems')
-mapl('[p', 'editor.action.marker.prev')
-mapl(']p', 'editor.action.marker.next')
 
 
 --[[ PROJECTS/FOLDERS/WORKSPACES ]]-------------------------------------------------------------------------------------
@@ -218,9 +219,10 @@ local mapt = function(key, cmd)
   map.set('n', '<Plug>(leader-toggle-map)' .. key, '<Cmd>call VSCodeNotify("' .. cmd .. '")<CR>', {remap=true})
 end
 
-mapt('i',     'settings.cycle.indentGuides')
-mapt('b',     'settings.cycle.bracketPairs')
-mapt('n',     'settings.cycle.lineNumbers')
+mapt('i',     'settings.cycle.editor-guides-indentation')
+mapt('b',     'settings.cycle.editor-guides-bracketPairs')
+mapt('n',     'settings.cycle.editor-lineNumbers')
+mapt('s',     'settings.cycle.editor-occurencesHighlight')
 mapt('t',     'workbench.action.toggleLightDarkThemes')
 mapt('w',     'editor.action.toggleWordWrap')
 mapt('<Tab>', 'workbench.action.toggleTabsVisibility')
