@@ -94,16 +94,16 @@ vim.g.maplocalleader = ' '
 vim.g.have_nerd_font = false
 
 -- [[ Setting options ]]
-require 'options'
+require 'kickstart.options'
 
 -- [[ Basic Keymaps ]]
-require 'keymaps'
+require 'kickstart.keymaps'
 
 -- [[ Install `lazy.nvim` plugin manager ]]
-require 'lazy-bootstrap'
+require 'kickstart.lazy-bootstrap'
 
 -- [[ Configure and install plugins ]]
-require 'lazy-plugins'
+require 'kickstart.lazy-plugins'
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
