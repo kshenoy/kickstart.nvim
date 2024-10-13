@@ -5,7 +5,10 @@
 
 local map = vim.keymap
 
+-- [[ GLOBAL ]]---------------------------------------------------------------------------------------------------------
 -- map.set('n', 'z=', '<Cmd>call VSCodeNotify("workbench.action.toggleSidebarVisibility")<CR>', {remap=true})
+map.set('n', '[d', '<Cmd>call VSCodeNotify("editor.action.marker.prev")<CR>', {remap=true})
+map.set('n', ']d', '<Cmd>call VSCodeNotify("editor.action.marker.next")<CR>', {remap=true})
 
 
 -- [[ LEADER ]]---------------------------------------------------------------------------------------------------------
@@ -71,7 +74,6 @@ local mapw = function(key, cmd)
   map.set('n', '<Plug>(leader-window-map)' .. key, '<Cmd>call VSCodeNotify("' .. cmd .. '")<CR>', {remap=true})
 end
 
-mapw('a',  'workbench.action.joinAllGroups')                                                      --  (u)nite all groups
 mapw('c',  'workbench.action.closeGroup')
 mapw('C',  'workbench.action.closeAllGroups')
 mapw('h',  'workbench.action.focusLeftGroup')
@@ -87,9 +89,10 @@ mapw('nh', 'workbench.action.newGroupLeft')
 mapw('nj', 'workbench.action.newGroupDown')
 mapw('nk', 'workbench.action.newGroupUp')
 mapw('nl', 'workbench.action.newGroupRight')
+mapw('u',  'workbench.action.joinAllGroups')                           --  (u)nite all groups
 mapw('w',  'workbench.action.navigateEditorGroups')
-mapw('z',  'workbench.action.toggleEditorWidths')                                        --  (z)oom in/out or maximi(z)e
-mapw('Z',  'workbench.action.maximizeEditor')                                  --  like zoom but gets rid of Primary Bar
+mapw('z',  'workbench.action.toggleEditorWidths')                      --  (z)oom in/out or maximi(z)e
+mapw('Z',  'workbench.action.maximizeEditor')                          --  like zoom but gets rid of Primary Bar
 mapw('=',  'workbench.action.evenEditorWidths')
 
 
@@ -157,23 +160,43 @@ maph('B', 'workbench.action.openDefaultKeybindingsFile')
 
 
 --[[ KUSTOMIZE ]]-------------------------------------------------------------------------------------------------------
--- Bindings related to the VSCode application. VSCode seems to use Ctrl+K a lot
+-- Bindings specific to the VSCode application. VSCode seems to use Ctrl+K a lot
+-- Other editor-agnostic toggle keybinds go in '<Leader>t'
 map.set('n', '<Leader>k', '<Plug>(leader-kustom-map)', {remap=true, silent=true})
 local mapk = function(key, cmd)
   map.set('n', '<Plug>(leader-kustom-map)' .. key, '<Cmd>call VSCodeNotify("' .. cmd .. '")<CR>', {remap=true})
 end
 
-mapk('a', 'workbench.action.toggleActivityBarVisibility')
-mapk('b', 'workbench.files.action.focusOpenEditorsView')
-mapk('f', 'workbench.explorer.fileView.focus')
-mapk('o', 'outline.focus')
-mapk('t', 'workbench.action.selectTheme')
-mapk('x', 'workbench.view.extensions')
-mapk(',', 'workbench.action.openSettings')
+mapk('a',  'workbench.action.toggleActivityBarVisibility')
+mapk('b',  'workbench.action.toggleSidebarVisibility')
+mapk('B',  'workbench.action.toggleAuxiliaryBar')
+mapk('e',  'workbench.action.toggleCenteredLayout')           -- Ctrl+E to center in MS Word
+mapk('p',  'workbench.action.togglePanel')
+mapk('P',  'workbench.action.toggleMaximizedPanel')
+mapk('s',  'workbench.action.toggleStatusbarVisibility')
+mapk('t',  'workbench.action.selectTheme')
+-- 'o' for open/focus
+mapk('ob', 'workbench.files.action.focusOpenEditorsView')     -- These are all in the Explorer
+mapk('oe', 'workbench.files.action.focusOpenEditorsView')
+mapk('of', 'workbench.explorer.fileView.focus')
+mapk('oo', 'outline.focus')
+mapk('ox', 'workbench.view.extensions')
+mapk('z',  'workbench.action.toggleZenMode')
+mapk(',',  'workbench.action.openSettings')                   -- Similar to MacOS
+mapk('_',  'workbench.action.toggleMenuBar')                  -- Menus have underscores for selection
+mapk('>',  'breadcrumbs.toggle')                              -- breadcrumbs use '>' for separators
 
 -- Menu-like behavior use M- maps
 mapk('<C-v>', 'workbench.action.quickOpenView')
 mapk('<C-l>', 'workbench.action.customizeLayout')
+
+
+--[[ LSP ]]-------------------------------------------------------------------------------------------------------------
+local mapl = function(key, cmd)
+  map.set('n', '<Plug>(leader-lsp-map)' .. key, '<Cmd>call VSCodeNotify("' .. cmd .. '")<CR>', {remap=true})
+end
+
+mapl('p',  'workbench.actions.view.problems')
 
 
 --[[ PROJECTS/FOLDERS/WORKSPACES ]]-------------------------------------------------------------------------------------
@@ -191,24 +214,17 @@ end
 
 
 --[[ TOGGLE ]]----------------------------------------------------------------------------------------------------------
+-- Editor-agnostic toggle keybinds go here while anything that is specific to VSCode should go in '<Leader>k'
 local mapt = function(key, cmd)
   map.set('n', '<Plug>(leader-toggle-map)' .. key, '<Cmd>call VSCodeNotify("' .. cmd .. '")<CR>', {remap=true})
 end
 
-mapt('b',     'workbench.action.toggleSidebarVisibility')
-mapt('B',     'workbench.action.toggleAuxiliaryBar')
-mapt('e',     'workbench.action.toggleCenteredLayout')                                   --  Ctrl+E to center in MS Word
-mapt('gi',    'settings.cycle.indentGuides')
-mapt('gb',    'settings.cycle.bracketPairs')
-mapt('n',     'settings.cycle.lineNumbers')
-mapt('p',     'workbench.action.togglePanel')
-mapt('P',     'workbench.action.toggleMaximizedPanel')
-mapt('s',     'workbench.action.toggleStatusbarVisibility')
+mapt('i',     'settings.cycle.editor-guides-indentation')
+mapt('b',     'settings.cycle.editor-guides-bracketPairs')
+mapt('n',     'settings.cycle.editor-lineNumbers')
+mapt('s',     'settings.cycle.editor-occurencesHighlight')
 mapt('t',     'workbench.action.toggleLightDarkThemes')
 mapt('w',     'editor.action.toggleWordWrap')
-mapt('z',     'workbench.action.toggleZenMode')
-mapt('_',     'workbench.action.toggleMenuBar')                                 --  Menus have underscores for selection
-mapt('>',     'breadcrumbs.toggle')                                               --  breadcrumbs use '>' for separators
 mapt('<Tab>', 'workbench.action.toggleTabsVisibility')
 
 
@@ -225,5 +241,5 @@ mapv('s', 'perforce.opened')                                                    
 
 --[[ EXTENSIONS ]]------------------------------------------------------------------------------------------------------
 -- Commentary
-map.set({'n', 'o', 'x'}, 'gc', '<Plug>VSCodeCommentary', {remap=true})
-map.set('n', 'gcc', '<Plug>VSCodeCommentaryLine', {remap=true})
+map.set({'n', 'o', 'x'}, 'gc',  '<Plug>VSCodeCommentary',     {remap=true})
+map.set('n',             'gcc', '<Plug>VSCodeCommentaryLine', {remap=true})

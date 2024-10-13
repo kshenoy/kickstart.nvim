@@ -44,6 +44,7 @@ end, {desc="Repo status"})
 map('n', '<Plug>(leader-open-map)m', '<Cmd>marks<CR>')
 map('n', '<Plug>(leader-open-map)r', '<Cmd>reg<CR>')
 
+
 map('n', '<Plug>(leader-toggle-map)l', function()
   if ((vim.fn.getloclist(0, { winid = 0 }).winid or 0) == 0) then
     vim.cmd "lopen"
@@ -62,3 +63,8 @@ map('n', '<Plug>(leader-toggle-map)q', function()
   end
   vim.cmd('copen')
 end, {desc = "Toggle QuickFix"})
+
+
+map('n', '<Plug>(leader-toggle-map)w', function()
+  require('utils').toggle_opt('wrap')
+end, {desc = "Toggle Wrap"})

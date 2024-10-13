@@ -8,6 +8,7 @@ vim.keymap.set('n', '<Leader>c', '<Plug>(leader-code-map)',    {remap=true, sile
 vim.keymap.set('n', '<Leader>f', '<Plug>(leader-file-map)',    {remap=true, silent=true})
 vim.keymap.set('n', '<Leader>g', '<Plug>(leader-goto-map)',    {remap=true, silent=true})
 vim.keymap.set('n', '<Leader>h', '<Plug>(leader-help-map)',    {remap=true, silent=true})
+vim.keymap.set('n', '<Leader>l', '<Plug>(leader-lsp-map)',     {remap=true, silent=true})
 vim.keymap.set('n', '<Leader>o', '<Plug>(leader-open-map)',    {remap=true, silent=true})
 vim.keymap.set('n', '<Leader>p', '<Plug>(leader-project-map)', {remap=true, silent=true})
 vim.keymap.set('n', '<Leader>s', '<Plug>(leader-search-map)',  {remap=true, silent=true})
