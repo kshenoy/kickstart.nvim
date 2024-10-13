@@ -1,4 +1,9 @@
+vim.o.timeoutlen = 500                                     -- Kickstart's default is too low at 300ms
+
 -- Neovim already has a lot of sane defaults. Here's some more.
+if not require('utils').is_neovim() then
+  return
+end
 
 
 --[[ Moving around, searching and patterns ]]---------------------------------------------------------------------------

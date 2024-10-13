@@ -1,58 +1,72 @@
 local M = {}
 
 local function setup_keymaps()
-  local map = vim.keymap.set
+  local map=vim.keymap.set
   local tb  = require('telescope.builtin')
+  local wk  = require('which-key')
+  local wkk = function(key, cmd, desc)
+    wk.add({"<Leader>" .. key, cmd, desc=desc, mode="n"})
+  end
 
-  map('n', "<Leader>'", tb.resume,            { desc = 'Resume last Telescope operation' })
-  map('n', '<Leader>:', tb.commands,          { desc = 'Commands' })
-  map('n', '<Leader>;', '<Cmd>Telescope<CR>', { desc = 'Telescope picker' })
+  vim.keymap.set("n", "<Leader>'", tb.resume,   { desc="Resume last Telescope operation" })
+  vim.keymap.set("n", "<Leader>:", tb.commands, { desc="Commands" })
+  vim.keymap.set("n", "<Leader>;", tb.builtin,  { desc="Telescope pickers" })
 
   ---[[ Buffer bindings
-  map('n', '<Plug>(leader-buffer-map)b', tb.buffers,             { desc = 'Switch to [b]uffers' })
-  map('n', '<Plug>(leader-buffer-map)t', tb.current_buffer_tags, { desc = "Search current buffer's tags" })
+  wk.add({ "<leader>b",  group="Buffers" })
+  wkk("bb", tb.buffers,             "Switch buffers")
+  wkk("bt", tb.current_buffer_tags, "Search current buffer's tags")
   --]]
 
   ---[[ File bindings
-  map('n', '<Plug>(leader-file-map)f', tb.find_files, { desc = '[f]ind [f]ile' })
-  map('n', '<Plug>(leader-file-map)r', tb.oldfiles,   { desc = '[f]iles opened [r]ecently' })
+  wk.add({ "<leader>f",  group="Files" })
+  wkk("ff", tb.find_files, "Find file")
+  wkk("fr", tb.oldfiles,   "Find recent files")
   --]]
 
   ---[[ Help bindings
-  map('n', '<Plug>(leader-help-map)b', tb.keymaps,   { desc = 'Search key[b]indings' })
-  map('n', '<Plug>(leader-help-map)h', tb.help_tags, { desc = 'Search help [t]ags' })
+  -- Searching for things related to Neovim go here. Searching for things related to the code go in the Search keymap
+  wk.add({"<leader>h",  group="Help"})
+  wkk("hb", tb.keymaps,     "Search keybindings")
+  wkk("hd", tb.diagnostics, "Search diagnostics")
+  wkk("hh", tb.help_tags,   "Search help tags")
+  wkk("hj", tb.jumplist,    "Search jumps")
+  wkk("hk", tb.keymaps,     "Search keymaps")
+  wkk("hl", tb.loclist,     "Search location-list")
+  wkk("hm", tb.marks,       "Search marks")
+  wkk("hq", tb.quickfix,    "Search quickfix")
+  wkk("hr", tb.registers,   "Search registers")
   --]]
 
   ---[[ Search bindings
-  map('n', '<Plug>(leader-search-map)b', tb.current_buffer_fuzzy_find, { desc = '[s]earch current [b]uffer]' })
-  map('n', '<Plug>(leader-search-map)d', tb.diagnostics,               { desc = '[s]earch [d]iagnostics'     })
-  map('n', '<Plug>(leader-search-map)g', tb.live_grep,                 { desc = '[s]earch with [g]rep'       })
-  map('n', '<Plug>(leader-search-map)j', tb.jumplist,                  { desc = '[s]earch [j]umps'           })
-  map('n', '<Plug>(leader-search-map)l', tb.loclist,                   { desc = '[s]earch [l]ocation-list'   })
-  map('n', '<Plug>(leader-search-map)m', tb.marks,                     { desc = '[s]earch [m]arks'           })
-  map('n', '<Plug>(leader-search-map)q', tb.quickfix,                  { desc = '[s]earch [q]uickfix'        })
-  map('n', '<Plug>(leader-search-map)r', tb.registers,                 { desc = '[s]earch [r]egisters'       })
-  map('n', '<Plug>(leader-search-map)s', tb.symbols,                   { desc = '[s]earch [s]ymbols'         })
-  map('n', '<Plug>(leader-search-map)t', tb.tags,                      { desc = '[s]earch [t]ags'            })
-  map('n', '<Plug>(leader-search-map)v', '<Plug>(leader-vcs-map)/',
-    { desc = '[s]earch [v]cs root', remap = true, silent = true })
-  map('n', '<Plug>(leader-search-map)w', tb.grep_string,               { desc = '[s]earch current [w]ord'    })
+  -- Searching for things related to the code go here. Searching for things related to Neovim go in the Help keymap
+  wk.add({ "<leader>s",  group="Search" })
+  wkk("sb", tb.current_buffer_fuzzy_find, "Search current buffer")
+  wkk("sg", tb.live_grep,                 "Search with grep")
+  wkk("ss", tb.symbols,                   "Search symbols")
+  wkk("st", tb.tags,                      "Search tags")
+  wk.add({ "<leader>sv", "<Plug>(leader-vcs-map)/", desc="Search VCS", mode="n", remap=true, silent=true })
+  wkk("s.", tb.grep_string, "Search word at point(.)")
   --]]
 
   ---[[ VCS bindings
-  map('n', '<Plug>(leader-vcs-map)f', function()
-    local vcs = require('custom.utils.vcs')
-    if vcs.find_git_root() then
+  wk.add({ "<leader>v",  group="VCS" })
+  wkk("vf", function()
+    if require('custom.utils.vcs').find_git_root() then
       return tb.git_files()
     else
       return vim.cmd('Telescope vim_p4_files')
     end
-  end, { desc = '[v]cs [f]ile' })
+  end, "VCS file")
 
-  map('n', '<Plug>(leader-vcs-map)c', tb.git_bcommits,        { desc = '[v]cs [c]ommits (buf)' })
-  map('n', '<Plug>(leader-vcs-map)C', tb.git_commits,         { desc = '[v]cs [C]ommits (all)' })
-  map('n', '<Plug>(leader-vcs-map)s', tb.git_status,          { desc = '[v]cs [s]tatus'        })
-  map('n', '<Plug>(leader-vcs-map)/', ':LiveGrepGitRoot<cr>', { desc = '[v]cs [s]earch all'    })
+  wkk("vc", tb.git_bcommits, "Buffer commits")
+  wkk("vC", tb.git_commits,  "All Commits")
+  wkk("vs", tb.git_status,   "VCS Status")
+  wkk("v/", function()
+    if require('utils.vcs').find_git_root() then
+      vim.cmd('LiveGrepGitRoot')
+    end
+  end, "Search repo")
   --]]
 end
 
