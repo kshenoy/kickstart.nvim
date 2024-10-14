@@ -66,5 +66,5 @@ end, {desc = "Toggle QuickFix"})
 
 
 map('n', '<Plug>(leader-toggle-map)w', function()
-  require('utils').toggle_opt('wrap')
+  require('custom.utils').toggle_opt('wrap')
 end, {desc = "Toggle Wrap"})

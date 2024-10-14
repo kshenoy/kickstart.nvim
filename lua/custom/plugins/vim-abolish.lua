@@ -1,8 +1,8 @@
 return { -- Smarter abbrev, substitutes and case-coercions
-  'tpope/vim-unimpaired',
+  'tpope/vim-abolish',
   enabled = false,
 
   cond = function()
-    return require('utils').is_neovim()
+    return require('custom.utils').is_neovim()
   end,
 }

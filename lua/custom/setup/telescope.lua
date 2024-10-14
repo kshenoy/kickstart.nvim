@@ -52,7 +52,7 @@ local function setup_keymaps()
   ---[[ VCS bindings
   wk.add({ "<leader>v",  group="VCS" })
   wkk("vf", function()
-    if require('utils.vcs').find_git_root() then
+    if require('custom.utils.vcs').find_git_root() then
       return tb.git_files()
     else
       return vim.cmd('Telescope vim_p4_files')
@@ -63,7 +63,7 @@ local function setup_keymaps()
   wkk("vC", tb.git_commits,  "All Commits")
   wkk("vs", tb.git_status,   "VCS Status")
   wkk("v/", function()
-    if require('utils.vcs').find_git_root() then
+    if require('custom.utils.vcs').find_git_root() then
       vim.cmd('LiveGrepGitRoot')
     end
   end, "Search repo")

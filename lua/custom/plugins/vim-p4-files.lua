@@ -1,7 +1,7 @@
 return {
   'Badhi/vim-p4-files',
   cond = function()
-    local utils = require('utils')
+    local utils = require('custom.utils')
     return utils.is_neovim() and utils.prequire('telescope')
   end,
 

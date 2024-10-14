@@ -3,6 +3,6 @@ return { -- Smarter abbrev, substitutes and case-coercions
   enabled = false,
 
   cond = function()
-    return require('utils').is_neovim()
+    return require('custom.utils').is_neovim()
   end,
 }

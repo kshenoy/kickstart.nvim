@@ -73,7 +73,7 @@ require('lazy').setup({
   {
     'tpope/vim-fugitive',
     cond = function()
-      return require('utils').is_neovim()
+      return require('custom.utils').is_neovim()
     end,
     lazy = true,
   },
@@ -81,7 +81,7 @@ require('lazy').setup({
   {
     'tpope/vim-rhubarb',
     cond = function()
-      return require('utils').is_neovim()
+      return require('custom.utils').is_neovim()
     end,
     lazy = true,
   },
@@ -95,7 +95,7 @@ require('lazy').setup({
     -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
     cond = function()
-      return require('utils').is_neovim()
+      return require('custom.utils').is_neovim()
     end,
     dependencies = {
       -- Automatically install LSPs to stdpath for neovim
@@ -115,7 +115,7 @@ require('lazy').setup({
     -- Autocompletion
     'hrsh7th/nvim-cmp',
     cond = function()
-      return require('utils').is_neovim()
+      return require('custom.utils').is_neovim()
     end,
     dependencies = {
       -- Snippet Engine & its associated nvim-cmp source
@@ -134,7 +134,7 @@ require('lazy').setup({
   {
     'folke/which-key.nvim',
     cond = function()
-      return require('utils').is_neovim()
+      return require('custom.utils').is_neovim()
     end,
     opts = {}
   },
@@ -143,7 +143,7 @@ require('lazy').setup({
     -- Adds git related signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
     cond = function()
-      return require('utils').is_neovim()
+      return require('custom.utils').is_neovim()
     end,
     opts = {
       -- See `:help gitsigns.txt`
@@ -185,7 +185,7 @@ require('lazy').setup({
     -- Theme inspired by Atom
     'navarasu/onedark.nvim',
     cond = function()
-      return require('utils').is_neovim()
+      return require('custom.utils').is_neovim()
     end,
     lazy = true,
     -- config = function()
@@ -198,7 +198,7 @@ require('lazy').setup({
     'nvim-lualine/lualine.nvim',
     -- See `:help lualine.txt`
     cond = function()
-      return require('utils').is_neovim()
+      return require('custom.utils').is_neovim()
     end,
     opts = {
       options = {
@@ -214,7 +214,7 @@ require('lazy').setup({
     -- Add indentation guides even on blank lines
     'lukas-reineke/indent-blankline.nvim',
     cond = function()
-      return require('utils').is_neovim()
+      return require('custom.utils').is_neovim()
     end,
     -- Enable `lukas-reineke/indent-blankline.nvim`
     -- See `:help ibl`
@@ -226,7 +226,7 @@ require('lazy').setup({
   { 'numToStr/Comment.nvim',
 
     cond = function()
-      return require('utils').is_neovim()
+      return require('custom.utils').is_neovim()
     end,
 
     event = "VeryLazy",
@@ -238,7 +238,7 @@ require('lazy').setup({
     'nvim-telescope/telescope.nvim',
     branch = '0.1.x',
     cond = function()
-      return require('utils').is_neovim()
+      return require('custom.utils').is_neovim()
     end,
     dependencies = {
       'nvim-lua/plenary.nvim',
@@ -261,7 +261,7 @@ require('lazy').setup({
     -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     cond = function()
-      return require('utils').is_neovim()
+      return require('custom.utils').is_neovim()
     end,
     dependencies = {
       'nvim-treesitter/nvim-treesitter-textobjects',
@@ -281,7 +281,7 @@ require('lazy').setup({
   --    Uncomment the following line and add your plugins to `lua/plugins/*.lua` to get going.
   --
   --    For additional information see: https://github.com/folke/lazy.nvim#-structuring-your-plugins
-  { import = 'plugins' },
+  { import = 'custom.plugins' },
 }, {})
 
 -- [[ Setting options ]]
@@ -353,7 +353,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 })
 
 -- Custom utility function to safely check if a module exists useful to conditionally setup plugins
-local prequire = require('utils').prequire
+local prequire = require('custom.utils').prequire
 
 -- [[ Configure Telescope ]]
 -- See `:help telescope` and `:help telescope.setup()`
@@ -432,7 +432,7 @@ if telescope then
   vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = '[S]earch [R]esume' })
   --]]
 
-  require('setup.telescope').setup()
+  require('custom.setup.telescope').setup()
 end
 
 -- [[ Configure Treesitter ]]
@@ -507,12 +507,12 @@ if prequire('nvim-treesitter') then
     --   },
     -- }
 
-    require('setup.treesitter').override()
+    require('custom.setup.treesitter').override()
   end, 0)
 end
 
 -- [[ Configure LSP ]]
-if require('utils').is_neovim() then
+if require('custom.utils').is_neovim() then
   --  This function gets run when an LSP connects to a particular buffer.
   local on_attach = function(_, bufnr)
     -- NOTE: Remember that lua is a real programming language, and as such it is possible

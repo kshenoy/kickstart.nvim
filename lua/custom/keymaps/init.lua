@@ -52,15 +52,15 @@ map('n', 'cg*', 'g*<C-O>cgn')
 
 --[[ Misc ]]------------------------------------------------------------------------------------------------------------
 -- Fill Text Width
-map('n', '<Leader>mf', require('utils').fill_width, {desc="Fill-width with character", silent=true})
+map('n', '<Leader>mf', require('custom.utils').fill_width, {desc="Fill-width with character", silent=true})
 
 
 --[[ Plugin related keymaps ]]------------------------------------------------------------------------------------------
 -- Load keymaps that are specific to Neovim
-if require('utils').is_neovim() then
-  require('keymaps.neovim-only')
+if require('custom.utils').is_neovim() then
+  require('custom.keymaps.neovim-only')
 end
 
-if require('utils').is_vscode() then
-  require('keymaps.vscode-only')
+if require('custom.utils').is_vscode() then
+  require('custom.keymaps.vscode-only')
 end
