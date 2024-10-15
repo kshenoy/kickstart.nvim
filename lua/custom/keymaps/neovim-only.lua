@@ -13,12 +13,6 @@ map('n', '<Plug>(leader-file-map)y', function()
 end, {desc="Copy file path"})
 
 
--- [[ Code -------------------------------------------------------------------------------------------------------------
-map('n', '<Plug>(leader-code-map)r', vim.lsp.buf.rename,      { desc = '[c]ode [r]ename' })
-map('n', '<Plug>(leader-code-map)a', vim.lsp.buf.code_action, { desc = '[c]ode [a]ction' })
---]]
-
-
 --[[ Files -------------------------------------------------------------------------------------------------------------
 local fzf_lua_p4 = require('neovim-only.fzf-lua.perforce')
 

@@ -83,5 +83,3 @@ if require('custom.utils').is_neovim() then
     vim.opt.grepprg    = "rg --vimgrep --smart-case"
   end
 end
-
-

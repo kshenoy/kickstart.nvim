@@ -1,21 +1,23 @@
 local M = {}
 
 local function setup_keymaps()
-  local map=vim.keymap.set
-  local tb  = require('telescope.builtin')
-  local wk  = require('which-key')
-  local wkk = function(key, cmd, desc)
-    wk.add({"<Leader>" .. key, cmd, desc=desc, mode="n"})
+  local tb = require('telescope.builtin')
+  local wk = require('which-key')
+
+  local map = function(keys, func, desc, mode)
+    mode = mode or 'n'
+    -- vim.keymap.set(mode, keys, func, { desc=desc })
+    wk.add({ keys, func, desc=desc, mode=mode })
   end
 
-  vim.keymap.set("n", "<Leader>'", tb.resume,   { desc="Resume last Telescope operation" })
-  vim.keymap.set("n", "<Leader>:", tb.commands, { desc="Commands" })
-  vim.keymap.set("n", "<Leader>;", tb.builtin,  { desc="Telescope pickers" })
+  map("<Leader>'", tb.resume,   "Resume last Telescope operation")
+  map("<Leader>:", tb.commands, "Commands")
+  map("<Leader>;", tb.builtin,  "Telescope pickers")
 
   ---[[ Buffer bindings
   wk.add({ "<leader>b",  group="Buffers" })
-  wkk("bb", tb.buffers,             "Switch buffers")
-  wkk("bt", tb.current_buffer_tags, "Search current buffer's tags")
+  map("<leader>bb", tb.buffers,             "Switch buffers")
+  map("<leader>bt", tb.current_buffer_tags, "Search current buffer's tags")
 
   -- FIXME: Hack till I figure out how to get which-key working with keymap prefix
   wk.add({
@@ -25,53 +27,59 @@ local function setup_keymaps()
 
   ---[[ File bindings
   wk.add({ "<leader>f",  group="Files" })
-  wkk("ff", tb.find_files, "Find file")
-  wkk("fr", tb.oldfiles,   "Find recent files")
+  map("<leader>ff", tb.find_files, "Find file")
+  map("<leader>fr", tb.oldfiles,   "Find recent files")
+  --]]
+
+  ---[[ Goto bindings
+  wk.add({ "<leader>g",  group="Goto…" })
+  map("<leader>gf", tb.find_files, "Find file")
+  map("<leader>gr", tb.oldfiles,   "Find recent files")
   --]]
 
   ---[[ Info bindings
   -- Searching for things related to Neovim go here. Searching for things related to the code go in the Search keymap
-  wk.add({"<leader>i",  group="Info"})
-  wkk("ib", tb.keymaps,     "Search keybindings")
-  wkk("id", tb.diagnostics, "Search diagnostics")
-  wkk("ih", tb.help_tags,   "Search help tags")
-  wkk("ij", tb.jumplist,    "Search jumps")
-  wkk("ik", tb.keymaps,     "Search keymaps")
-  wkk("il", tb.loclist,     "Search location-list")
-  wkk("im", tb.marks,       "Search marks")
-  wkk("iq", tb.quickfix,    "Search quickfix")
-  wkk("ir", tb.registers,   "Search registers")
+  wk.add({"<leader>i",  group="Info…"})
+  map("<leader>id", tb.diagnostics, "Search diagnostics")
+  map("<leader>ih", tb.help_tags,   "Search help tags")
+  map("<leader>ij", tb.jumplist,    "Search jumps")
+  map("<leader>ik", tb.keymaps,     "Search keymaps")
+  map("<leader>il", tb.loclist,     "Search location-list")
+  map("<leader>im", tb.marks,       "Search marks")
+  map("<leader>iq", tb.quickfix,    "Search quickfix")
+  map("<leader>ir", tb.registers,   "Search registers")
   --]]
 
   ---[[ Search bindings
   -- Searching for things related to the code go here. Searching for things related to Neovim go in the Help keymap
-  wk.add({ "<leader>s",  group="Search" })
-  wkk("sb", tb.current_buffer_fuzzy_find, "Search current buffer")
-  wkk("sg", tb.live_grep,                 "Search with grep")
-  wkk("ss", tb.symbols,                   "Search symbols")
-  wkk("st", tb.tags,                      "Search tags")
-  wk.add({ "<leader>sv", "<Plug>(leader-vcs-map)/", desc="Search VCS", mode="n", remap=true, silent=true })
-  wkk("s.", tb.grep_string, "Search word at point(.)")
+  wk.add({ "<leader>s",  group="Search…"})
+  map("<leader>sb",      tb.current_buffer_fuzzy_find, "Search current buffer")
+  map("<leader>sB",      tb.live_grep,                 "Search all buffers")
+  map("<leader>ss",      tb.symbols,                   "Search symbols")
+  map("<leader>st",      tb.tags,                      "Search tags")
+  wk.add({ "<leader>sv", "<Plug>(leader-vcs-map)/",    desc="Search VCS", remap=true, silent=true })
+  map("<leader>s.",      tb.grep_string,               "Search word at point(.)")
   --]]
 
   ---[[ VCS bindings
-  wk.add({ "<leader>v",  group="VCS" })
-  wkk("vf", function()
-    if require('custom.utils.vcs').find_git_root() then
-      return tb.git_files()
-    else
-      return vim.cmd('Telescope vim_p4_files')
-    end
-  end, "VCS file")
-
-  wkk("vc", tb.git_bcommits, "Buffer commits")
-  wkk("vC", tb.git_commits,  "All Commits")
-  wkk("vs", tb.git_status,   "VCS Status")
-  wkk("v/", function()
-    if require('custom.utils.vcs').find_git_root() then
-      vim.cmd('LiveGrepGitRoot')
-    end
-  end, "Search repo")
+  wk.add({ "<leader>v",  group="VCS…" })
+  map("<leader>vf",
+      function()
+        if require('custom.utils.vcs').find_git_root() then
+          return tb.git_files()
+        else
+          return vim.cmd('Telescope vim_p4_files')
+        end
+      end, "VCS file")
+  map("<leader>vc", tb.git_bcommits, "Buffer commits")
+  map("<leader>vC", tb.git_commits,  "All Commits")
+  map("<leader>vs", tb.git_status,   "VCS Status")
+  map("<leader>v/",
+      function()
+        if require('custom.utils.vcs').find_git_root() then
+          vim.cmd('LiveGrepGitRoot')
+        end
+      end, "Search repo")
   --]]
 end
 
