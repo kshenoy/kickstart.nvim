@@ -1,5 +1,3 @@
--- These are all stored in the lua folder to keep it modular and distinct from kickstart's config
-
 -- Define leader and some keymaps ahead of time.
 -- This needs to be the first thing so that everything else can make use of it
 require 'custom.keymaps.setup'

@@ -162,7 +162,6 @@ maph('B', 'workbench.action.openDefaultKeybindingsFile')
 --[[ KUSTOMIZE ]]-------------------------------------------------------------------------------------------------------
 -- Bindings specific to the VSCode application. VSCode seems to use Ctrl+K a lot
 -- Other editor-agnostic toggle keybinds go in '<Leader>t'
-map.set('n', '<Leader>k', '<Plug>(leader-kustom-map)', {remap=true, silent=true})
 local mapk = function(key, cmd)
   map.set('n', '<Plug>(leader-kustom-map)' .. key, '<Cmd>call VSCodeNotify("' .. cmd .. '")<CR>', {remap=true})
 end

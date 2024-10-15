@@ -58,9 +58,9 @@ map('n', '<Leader>mf', require('custom.utils').fill_width, {desc="Fill-width wit
 --[[ Plugin related keymaps ]]------------------------------------------------------------------------------------------
 -- Load keymaps that are specific to Neovim
 if require('custom.utils').is_neovim() then
-  require('keymaps.neovim-only')
+  require('custom.keymaps.neovim-only')
 end
 
 if require('custom.utils').is_vscode() then
-  require('keymaps.vscode-only')
+  require('custom.keymaps.vscode-only')
 end
