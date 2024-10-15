@@ -16,6 +16,11 @@ local function setup_keymaps()
   wk.add({ "<leader>b",  group="Buffers" })
   wkk("bb", tb.buffers,             "Switch buffers")
   wkk("bt", tb.current_buffer_tags, "Search current buffer's tags")
+
+  -- FIXME: Hack till I figure out how to get which-key working with keymap prefix
+  wk.add({
+    { "<Leader><Leader>", "<Leader>bb", remap=true }
+  })
   --]]
 
   ---[[ File bindings
@@ -24,18 +29,18 @@ local function setup_keymaps()
   wkk("fr", tb.oldfiles,   "Find recent files")
   --]]
 
-  ---[[ Help bindings
+  ---[[ Info bindings
   -- Searching for things related to Neovim go here. Searching for things related to the code go in the Search keymap
-  wk.add({"<leader>h",  group="Help"})
-  wkk("hb", tb.keymaps,     "Search keybindings")
-  wkk("hd", tb.diagnostics, "Search diagnostics")
-  wkk("hh", tb.help_tags,   "Search help tags")
-  wkk("hj", tb.jumplist,    "Search jumps")
-  wkk("hk", tb.keymaps,     "Search keymaps")
-  wkk("hl", tb.loclist,     "Search location-list")
-  wkk("hm", tb.marks,       "Search marks")
-  wkk("hq", tb.quickfix,    "Search quickfix")
-  wkk("hr", tb.registers,   "Search registers")
+  wk.add({"<leader>i",  group="Info"})
+  wkk("ib", tb.keymaps,     "Search keybindings")
+  wkk("id", tb.diagnostics, "Search diagnostics")
+  wkk("ih", tb.help_tags,   "Search help tags")
+  wkk("ij", tb.jumplist,    "Search jumps")
+  wkk("ik", tb.keymaps,     "Search keymaps")
+  wkk("il", tb.loclist,     "Search location-list")
+  wkk("im", tb.marks,       "Search marks")
+  wkk("iq", tb.quickfix,    "Search quickfix")
+  wkk("ir", tb.registers,   "Search registers")
   --]]
 
   ---[[ Search bindings

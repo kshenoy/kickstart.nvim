@@ -41,11 +41,7 @@ end, {desc="Repo status"})
 
 
 ---[[ Misc -------------------------------------------------------------------------------------------------------------
-map('n', '<Plug>(leader-open-map)m', '<Cmd>marks<CR>')
-map('n', '<Plug>(leader-open-map)r', '<Cmd>reg<CR>')
-
-
-map('n', '<Plug>(leader-toggle-map)l', function()
+map('n', '<Plug>(leader-kustom-map)l', function()
   if ((vim.fn.getloclist(0, { winid = 0 }).winid or 0) == 0) then
     vim.cmd "lopen"
   else
@@ -54,7 +50,7 @@ map('n', '<Plug>(leader-toggle-map)l', function()
 end, {desc = "Toggle LocationList"})
 
 
-map('n', '<Plug>(leader-toggle-map)q', function()
+map('n', '<Plug>(leader-kustom-map)q', function()
   for _, win in pairs(vim.fn.getwininfo()) do
     if ((win.quickfix == 1) and (win.loclist == 0)) then
       vim.cmd('cclose')
