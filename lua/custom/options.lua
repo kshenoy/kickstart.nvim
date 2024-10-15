@@ -22,7 +22,7 @@ vim.o.sidescroll    = 3                                              -- minimal 
 vim.o.sidescrolloff = 10                                         -- no. of columns to show around the cursor for context
 vim.o.cmdheight     = 2        -- number of screen lines to use for the command-line. Helps avoiding 'hit-enter' prompts
 vim.o.list          = true                                                           -- make it easier to see whitespace
-vim.opt.listchars   = {tab='» ', extends='›', precedes='‹', nbsp='·', trail='·'}   -- list of strings used for list mode
+vim.opt.listchars:append({extends='›', precedes='‹'})                          -- list of strings used for list mode
 vim.o.number = false                                                                          -- don't show line numbers
 vim.o.conceallevel  = 2                                                           -- concealed text is completely hidden
 vim.o.concealcursor = "nc"                           -- conceal text in the cursor line in normal and command-line modes
