@@ -18,5 +18,4 @@ require 'kickstart.lazy-plugins'
 -- Note that the package manager (lazy.nvim) automatically loads all the plugins specified in plugins
 -- So I don't have to specify that explicitly
 
--- require 'kickstart.keymaps'
 require 'custom.keymaps'
