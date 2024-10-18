@@ -15,7 +15,6 @@ wk.add {
     vim.cmd('let @+="' .. vim.fn.expand '%:p' .. '"')
   end,
   desc = 'Copy file path',
-  mode = 'n',
 }
 
 -- [[ FILE ]]-----------------------------------------------------------------------------------------------------------
@@ -51,7 +50,6 @@ wk.add {
     end
   end,
   desc = 'Toggle LocationList',
-  mode = 'n',
 }
 
 wk.add {
@@ -66,7 +64,6 @@ wk.add {
     vim.cmd 'copen'
   end,
   desc = 'Toggle QuickFix',
-  mode = 'n',
 }
 
 wk.add {
@@ -75,5 +72,4 @@ wk.add {
     require('custom.utils').toggle_opt 'wrap'
   end,
   desc = 'Toggle Wrap',
-  mode = 'n',
 }
