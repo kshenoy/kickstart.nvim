@@ -148,7 +148,7 @@ return {
             end, '[T]oggle Inlay [H]ints')
           end
 
-          require('custom.setup.lsp').setup_keymaps(event.buf)
+          require('custom.setup.lsp').setup(event.buf)
         end,
       })
 

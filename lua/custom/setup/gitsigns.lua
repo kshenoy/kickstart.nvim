@@ -1,6 +1,6 @@
 local M = {}
 
-function M.setup_keymaps(bufnr)
+function M.setup(bufnr)
   local gs = package.loaded.gitsigns
 
   require('which-key').add({"<leader>vp", gs.preview_hunk, desc="Preview git hunk", buffer=bufnr})

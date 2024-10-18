@@ -1,6 +1,6 @@
 local M = {}
 
-local function setup_keymaps()
+function M.setup()
   local tb = require 'telescope.builtin'
   local wk = require 'which-key'
 
@@ -86,10 +86,6 @@ local function setup_keymaps()
       vim.cmd 'LiveGrepGitRoot'
     end
   end, 'Search repo')
-end
-
-function M.setup()
-  setup_keymaps()
 end
 
 return M
