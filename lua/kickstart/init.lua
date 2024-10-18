@@ -136,7 +136,10 @@ require('lazy').setup({
     cond = function()
       return require('custom.utils').is_neovim()
     end,
-    opts = {}
+    opts = {},
+    config = function()
+      require('custom.setup.which-key').setup()
+    end
   },
 
   {

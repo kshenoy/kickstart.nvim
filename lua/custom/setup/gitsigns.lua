@@ -3,7 +3,7 @@ local M = {}
 function M.setup_keymaps(bufnr)
   local gs = package.loaded.gitsigns
 
-  require('which-key').add({"<leader>vh", gs.preview_hunk, desc="Preview git hunk", buffer=bufnr})
+  require('which-key').add({"<leader>vp", gs.preview_hunk, desc="Preview git hunk", buffer=bufnr})
 
   -- don't override the built-in and fugitive keymaps
   vim.keymap.set('v', ']c', function()

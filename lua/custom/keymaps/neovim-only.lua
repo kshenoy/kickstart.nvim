@@ -1,6 +1,7 @@
 local map = vim.keymap.set
+local wk = require('which-key')
 
---[[ Remapping for convenience ]]---------------------------------------------------------------------------------------
+--[[ REMAPS ]]----------------------------------------------------------------------------------------------------------
 -- Display full path and filename
 map('n', '<C-G>', '2<C-G>')
 
@@ -8,12 +9,13 @@ map('n', '<C-G>', '2<C-G>')
 map('n', 'ZQ', '<Cmd>qall!<CR>')
 
 -- Copy the file name to unix visual select buffer
-map('n', '<Plug>(leader-file-map)y', function()
+wk.add({"<leader>fy", function()
   vim.cmd('let @+="' .. vim.fn.expand('%:p') .. '"')
-end, {desc="Copy file path"})
+end, desc="Copy file path", mode='n'})
 
 
---[[ Files -------------------------------------------------------------------------------------------------------------
+--[[ FILE ]]------------------------------------------------------------------------------------------------------------
+--[[
 local fzf_lua_p4 = require('neovim-only.fzf-lua.perforce')
 
 -- Checkout the file if in a VCS
@@ -31,20 +33,20 @@ map('n', '<Plug>(leader-vcs-map)s', function()
     return fzf_lua_p4.status()
   end
 end, {desc="Repo status"})
---]]
+]]--
 
 
----[[ Misc -------------------------------------------------------------------------------------------------------------
-map('n', '<Plug>(leader-kustom-map)l', function()
+--[[ MISC ]]------------------------------------------------------------------------------------------------------------
+wk.add({"<leader>kl", function()
   if ((vim.fn.getloclist(0, { winid = 0 }).winid or 0) == 0) then
     vim.cmd "lopen"
   else
     vim.cmd "lclose"
   end
-end, {desc = "Toggle LocationList"})
+end, desc="Toggle LocationList", mode='n'})
 
 
-map('n', '<Plug>(leader-kustom-map)q', function()
+wk.add({"<leader>kq", function()
   for _, win in pairs(vim.fn.getwininfo()) do
     if ((win.quickfix == 1) and (win.loclist == 0)) then
       vim.cmd('cclose')
@@ -52,9 +54,9 @@ map('n', '<Plug>(leader-kustom-map)q', function()
     end
   end
   vim.cmd('copen')
-end, {desc = "Toggle QuickFix"})
+end, desc="Toggle QuickFix", mode='n'})
 
 
-map('n', '<Plug>(leader-toggle-map)w', function()
+wk.add({"<leader>tw", function()
   require('custom.utils').toggle_opt('wrap')
-end, {desc = "Toggle Wrap"})
+end, desc="Toggle Wrap", mode='n'})
