@@ -10,6 +10,9 @@ local map = vim.keymap
 map.set('n', '[d', '<Cmd>call VSCodeNotify("editor.action.marker.prev")<CR>', {remap=true})
 map.set('n', ']d', '<Cmd>call VSCodeNotify("editor.action.marker.next")<CR>', {remap=true})
 
+map.set({'n', 'o', 'x'}, 'gc',  '<Plug>VSCodeCommentary',     {remap=true})
+map.set('n',             'gcc', '<Plug>VSCodeCommentaryLine', {remap=true})
+
 
 -- [[ LEADER ]]---------------------------------------------------------------------------------------------------------
 -- The leader is used for global maps.
@@ -36,8 +39,8 @@ end
 -- mapLL('<LocalLeader>', 'editor.action.goToDeclaration')
 
 
---[[ EDITORS ]]---------------------------------------------------------------------------------------------------------
--- Bindings related to the editor (buffer)
+--[[ BUFFER ]]----------------------------------------------------------------------------------------------------------
+-- Bindings related to the buffer (editor)
 local mapb = function(key, cmd)
   map.set('n', '<Plug>(leader-buffer-map)' .. key, '<Cmd>call VSCodeNotify("' .. cmd .. '")<CR>', {remap=true})
 end
@@ -108,7 +111,7 @@ mapc('ct', 'editor.action.transformToTitlecase')
 mapc('cu', 'editor.action.transformToUppercase')
 
 
---[[ GO TO ]]-----------------------------------------------------------------------------------------------------------
+--[[ GOTO ]]------------------------------------------------------------------------------------------------------------
 local mapg = function(key, cmd)
   map.set('n', '<Plug>(leader-goto-map)' .. key, '<Cmd>call VSCodeNotify("' .. cmd .. '")<CR>', {remap=true})
 end
@@ -141,13 +144,14 @@ mapg('<M-r>',  'references-view.findReferences')
 mapg('<C-w>r', 'openReferenceToSide')
 
 
---[[ HELP ]]------------------------------------------------------------------------------------------------------------
-local maph = function(key, cmd)
-  map.set('n', '<Plug>(leader-help-map)' .. key, '<Cmd>call VSCodeNotify("' .. cmd .. '")<CR>', {remap=true})
+--[[ INFO ]]------------------------------------------------------------------------------------------------------------
+local mapi = function(key, cmd)
+  map.set('n', '<Plug>(leader-info-map)' .. key, '<Cmd>call VSCodeNotify("' .. cmd .. '")<CR>', {remap=true})
 end
 
-maph('b', 'workbench.action.openGlobalKeybindings')
-maph('B', 'workbench.action.openDefaultKeybindingsFile')
+mapi('k', 'workbench.action.openGlobalKeybindings')
+mapi('K', 'workbench.action.openDefaultKeybindingsFile')
+mapi('p', 'workbench.actions.view.problems')
 
 
 --[[ KUSTOMIZE ]]-------------------------------------------------------------------------------------------------------
@@ -157,36 +161,27 @@ local mapk = function(key, cmd)
   map.set('n', '<Plug>(leader-kustom-map)' .. key, '<Cmd>call VSCodeNotify("' .. cmd .. '")<CR>', {remap=true})
 end
 
-mapk('a',  'workbench.action.toggleActivityBarVisibility')
-mapk('b',  'workbench.action.toggleSidebarVisibility')
-mapk('B',  'workbench.action.toggleAuxiliaryBar')
-mapk('e',  'workbench.action.toggleCenteredLayout')           -- Ctrl+E to center in MS Word
-mapk('p',  'workbench.action.togglePanel')
-mapk('P',  'workbench.action.toggleMaximizedPanel')
-mapk('s',  'workbench.action.toggleStatusbarVisibility')
-mapk('t',  'workbench.action.selectTheme')
--- 'o' for open/focus
-mapk('ob', 'workbench.files.action.focusOpenEditorsView')     -- These are all in the Explorer
-mapk('oe', 'workbench.files.action.focusOpenEditorsView')
-mapk('of', 'workbench.explorer.fileView.focus')
-mapk('oo', 'outline.focus')
-mapk('ox', 'workbench.view.extensions')
-mapk('z',  'workbench.action.toggleZenMode')
-mapk(',',  'workbench.action.openSettings')                   -- Similar to MacOS
-mapk('_',  'workbench.action.toggleMenuBar')                  -- Menus have underscores for selection
-mapk('>',  'breadcrumbs.toggle')                              -- breadcrumbs use '>' for separators
+mapk('b', 'workbench.action.toggleSidebarVisibility')
+mapk('B', 'workbench.action.toggleAuxiliaryBar')
+mapk('e', 'workbench.view.explorer')
+mapk('f', 'workbench.explorer.fileView.focus')
+mapk('x', 'workbench.view.extensions')
+mapk('o', 'outline.focus')
+mapk('p', 'workbench.action.togglePanel')
+mapk('P', 'workbench.action.toggleMaximizedPanel')
+mapk('s', 'workbench.action.toggleStatusbarVisibility')
+mapk('t', 'workbench.action.selectTheme')
+mapk('v', 'workbench.view.scm')                            -- version-control
+mapk('z', 'workbench.action.toggleZenMode')
+mapk(',', 'workbench.action.openSettings')                 -- Similar to MacOS
+mapk('_', 'workbench.action.toggleMenuBar')                -- Menus have underscores for selection
+mapk('>', 'breadcrumbs.toggle')                            -- breadcrumbs use '>' for separators
+mapk('`', 'workbench.action.terminal.toggleTerminal')
+
 
 -- Menu-like behavior use M- maps
 mapk('<C-v>', 'workbench.action.quickOpenView')
 mapk('<C-l>', 'workbench.action.customizeLayout')
-
-
---[[ LSP ]]-------------------------------------------------------------------------------------------------------------
-local mapl = function(key, cmd)
-  map.set('n', '<Plug>(leader-lsp-map)' .. key, '<Cmd>call VSCodeNotify("' .. cmd .. '")<CR>', {remap=true})
-end
-
-mapl('p',  'workbench.actions.view.problems')
 
 
 --[[ PROJECTS/FOLDERS/WORKSPACES ]]-------------------------------------------------------------------------------------
@@ -218,7 +213,7 @@ mapt('w',     'editor.action.toggleWordWrap')
 mapt('<Tab>', 'workbench.action.toggleTabsVisibility')
 
 
---[[ SOURCE-CONTROL ]]--------------------------------------------------------------------------------------------------
+--[[ VCS ]]-------------------------------------------------------------------------------------------------------------
 local mapv = function(key, cmd)
   map.set('n', '<Plug>(leader-vcs-map)' .. key, '<Cmd>call VSCodeNotify("' .. cmd .. '")<CR>', {remap=true})
 end
@@ -227,9 +222,3 @@ mapv('a', 'perforce.annotate')
 mapv('d', 'perforce.diff')
 mapv('e', 'perforce.edit')
 mapv('s', 'perforce.opened')                                                                                 -- (s)tatus
-
-
---[[ EXTENSIONS ]]------------------------------------------------------------------------------------------------------
--- Commentary
-map.set({'n', 'o', 'x'}, 'gc',  '<Plug>VSCodeCommentary',     {remap=true})
-map.set('n',             'gcc', '<Plug>VSCodeCommentaryLine', {remap=true})
