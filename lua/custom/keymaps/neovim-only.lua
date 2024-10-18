@@ -1,7 +1,7 @@
 local map = vim.keymap.set
-local wk = require('which-key')
+local wk = require 'which-key'
 
---[[ REMAPS ]]----------------------------------------------------------------------------------------------------------
+-- [[ REMAPS ]] --------------------------------------------------------------------------------------------------------
 -- Display full path and filename
 map('n', '<C-G>', '2<C-G>')
 
@@ -9,12 +9,16 @@ map('n', '<C-G>', '2<C-G>')
 map('n', 'ZQ', '<Cmd>qall!<CR>')
 
 -- Copy the file name to unix visual select buffer
-wk.add({"<leader>fy", function()
-  vim.cmd('let @+="' .. vim.fn.expand('%:p') .. '"')
-end, desc="Copy file path", mode='n'})
+wk.add {
+  '<leader>fy',
+  function()
+    vim.cmd('let @+="' .. vim.fn.expand '%:p' .. '"')
+  end,
+  desc = 'Copy file path',
+  mode = 'n',
+}
 
-
---[[ FILE ]]------------------------------------------------------------------------------------------------------------
+-- [[ FILE ]]-----------------------------------------------------------------------------------------------------------
 --[[
 local fzf_lua_p4 = require('neovim-only.fzf-lua.perforce')
 
@@ -33,30 +37,43 @@ map('n', '<Plug>(leader-vcs-map)s', function()
     return fzf_lua_p4.status()
   end
 end, {desc="Repo status"})
-]]--
+]]
+--
 
-
---[[ MISC ]]------------------------------------------------------------------------------------------------------------
-wk.add({"<leader>kl", function()
-  if ((vim.fn.getloclist(0, { winid = 0 }).winid or 0) == 0) then
-    vim.cmd "lopen"
-  else
-    vim.cmd "lclose"
-  end
-end, desc="Toggle LocationList", mode='n'})
-
-
-wk.add({"<leader>kq", function()
-  for _, win in pairs(vim.fn.getwininfo()) do
-    if ((win.quickfix == 1) and (win.loclist == 0)) then
-      vim.cmd('cclose')
-      return
+-- [[ MISC ]] ----------------------------------------------------------------------------------------------------------
+wk.add {
+  '<leader>kl',
+  function()
+    if (vim.fn.getloclist(0, { winid = 0 }).winid or 0) == 0 then
+      vim.cmd 'lopen'
+    else
+      vim.cmd 'lclose'
     end
-  end
-  vim.cmd('copen')
-end, desc="Toggle QuickFix", mode='n'})
+  end,
+  desc = 'Toggle LocationList',
+  mode = 'n',
+}
 
+wk.add {
+  '<leader>kq',
+  function()
+    for _, win in pairs(vim.fn.getwininfo()) do
+      if (win.quickfix == 1) and (win.loclist == 0) then
+        vim.cmd 'cclose'
+        return
+      end
+    end
+    vim.cmd 'copen'
+  end,
+  desc = 'Toggle QuickFix',
+  mode = 'n',
+}
 
-wk.add({"<leader>tw", function()
-  require('custom.utils').toggle_opt('wrap')
-end, desc="Toggle Wrap", mode='n'})
+wk.add {
+  '<leader>tw',
+  function()
+    require('custom.utils').toggle_opt 'wrap'
+  end,
+  desc = 'Toggle Wrap',
+  mode = 'n',
+}
