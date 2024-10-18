@@ -179,7 +179,7 @@ require('lazy').setup({
           return '<Ignore>'
         end, { expr = true, buffer = bufnr, desc = 'Jump to previous hunk' })
 
-        require('custom.setup.gitsigns').setup_keymaps(bufnr)
+        require('custom.setup.gitsigns').setup(bufnr)
       end,
     },
   },
@@ -559,7 +559,7 @@ if require('custom.utils').is_neovim() then
       vim.lsp.buf.format()
     end, { desc = 'Format current buffer with LSP' })
 
-    require('custom.setup.lsp').setup_keymaps(bufnr)
+    require('custom.setup.lsp').setup(bufnr)
   end
 
   -- document existing key chains

@@ -1,6 +1,6 @@
 local M = {}
 
-function M.setup_keymaps(bufnr)
+function M.setup(bufnr)
   local wk  = require('which-key')
 
   local map = function(keys, func, desc, mode)
