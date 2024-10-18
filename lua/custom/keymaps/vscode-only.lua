@@ -45,27 +45,25 @@ end
 -- mapb('a', 'workbench.action.showAllEditorsByMostRecentlyUsed')
 mapb('b', 'workbench.action.showEditorsInActiveGroup')
 mapb('B', 'workbench.action.showAllEditors')
-mapb('c', 'workbench.action.closeActiveEditor')
-mapb('C', 'workbench.action.closeEditorInAllGroups')
-mapb('d', 'workbench.action.closeUnmodifiedEditors')
-mapb('D', 'workbench.action.closeEditorsInGroup')                                              --  (except pinned)
+mapb('d', 'workbench.action.closeActiveEditor')                        -- similar to vim's buf(d)elete
+mapb('D', 'workbench.action.closeEditorInAllGroups')
+mapb('c', 'workbench.action.closeUnmodifiedEditors')
+mapb('C', 'workbench.action.closeEditorsInGroup')                      --  (except pinned)
 mapb('H', 'workbench.action.moveEditorLeftInGroup')
-mapb('J', 'workbench.action.moveEditorToLastGroup')
-mapb('K', 'workbench.action.moveEditorToFirstGroup')
+mapb('J', 'workbench.action.moveEditorToFirstGroup')
+mapb('K', 'workbench.action.moveEditorToLastGroup')
 mapb('L', 'workbench.action.moveEditorRightInGroup')
 mapb('n', 'workbench.action.nextEditorInGroup')
-mapb('N', 'workbench.action.moveEditorToNextGroup')
 mapb('o', 'workbench.action.closeOtherEditors')
 mapb('p', 'workbench.action.previousEditorInGroup')
-mapb('P', 'workbench.action.moveEditorToPreviousGroup')
 mapb('r', 'workbench.action.files.revert')
 mapb('s', 'workbench.action.toggleSplitEditorInGroup')
 mapb('S', 'workbench.action.toggleSplitEditorInGroupLayout')
-mapb('u', 'workbench.action.reopenClosedEditor')                                                  --  (u)ndo close
+mapb('u', 'workbench.action.reopenClosedEditor')                       --  (u)ndo close
 mapb('x', 'workbench.action.pinEditor')
 mapb('X', 'workbench.action.unpinEditor')
-mapb('y', 'copyFilePath')                                                  -- (y)ank file-path. doom also uses 'y'
--- mapb('`', 'workbench.action.quickOpenPreviousRecentlyUsedEditorInGroup')
+mapb('y', 'copyFilePath')                                              -- (y)ank file-path. doom also uses 'y'
+mapb('`', 'workbench.action.quickOpenPreviousRecentlyUsedEditorInGroup')
 
 
 --[[ EDITOR-GROUPS ]]---------------------------------------------------------------------------------------------------
@@ -84,7 +82,6 @@ mapw('H',  'workbench.action.moveActiveEditorGroupLeft')
 mapw('J',  'workbench.action.moveActiveEditorGroupDown')
 mapw('K',  'workbench.action.moveActiveEditorGroupUp')
 mapw('L',  'workbench.action.moveActiveEditorGroupRight')
-mapw('o',  'workbench.action.closeEditorsInOtherGroups')
 mapw('nh', 'workbench.action.newGroupLeft')
 mapw('nj', 'workbench.action.newGroupDown')
 mapw('nk', 'workbench.action.newGroupUp')
@@ -127,27 +124,21 @@ mapg('d',      'editor.action.revealDefinition')
 mapg('<C-d>',  'editor.action.peekDefinition')
 mapg('<C-w>d', 'editor.action.revealDefinitionAside')
 
-mapg('k',       'editor.action.revealDeclaration')
-mapg('<C-k>', 'editor.action.peekDeclaration')
-map.set('n', '<Plug>(leader-goto-map)<C-w>k', function()
+mapg('D',       'editor.action.revealDeclaration')
+mapg('<C-S-d>', 'editor.action.peekDeclaration')
+map.set('n', '<Plug>(leader-goto-map)<C-w>D', function()
   VSCodeNotify("editor.action.openDeclarationToTheSide")
   VSCodeNotify("editor.action.revealDeclaration")
 end, {remap=true})
+-- editor.action.previewDeclaration
 
 mapg('h',      'references-view.showCallHierarchy')
-
 mapg('o',      'workbench.action.gotoSymbol')
 mapg('O',      'workbench.action.showAllSymbols')
-
 mapg('r',      'editor.action.goToReferences')
 mapg('<C-r>',  'editor.action.referenceSearch.trigger')
 mapg('<M-r>',  'references-view.findReferences')
 mapg('<C-w>r', 'openReferenceToSide')
-
--- mapg('q', 'editor.action.revealDeclaration')
--- mapg('<C->', 'editor.action.peekDeclaration')
--- mapg('<C-W>', 'editor.action.openDeclarationToTheSide')
--- editor.action.previewDeclaration
 
 
 --[[ HELP ]]------------------------------------------------------------------------------------------------------------
