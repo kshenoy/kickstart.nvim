@@ -45,10 +45,6 @@ if require('custom.utils').is_neovim() then
   vim.o.showmode = false                                                  -- display the current mode in the status line
 
 
-  --[[ Selecting text ]]------------------------------------------------------------------------------------------------
-  vim.opt.clipboard:remove('unnamedplus')           -- do not automatically add all yanked/deleted text to the clipboard
-
-
   --[[ Editing text ]]--------------------------------------------------------------------------------------------------
   vim.o.undofile  = true                                                  -- automatically save and restore undo history
   vim.o.textwidth = 120                                                       -- line length above which to break a line
