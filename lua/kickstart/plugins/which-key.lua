@@ -65,11 +65,11 @@ return {
       --   { '<leader>t', group = '[T]oggle' },
       --   { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
       -- },
-
-      config = function()
-        require('custom.setup.which-key').setup()
-      end
     },
+
+    config = function()
+      require('custom.setup.which-key').setup()
+    end,
   },
 }
 -- vim: ts=2 sts=2 sw=2 et
