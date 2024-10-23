@@ -87,7 +87,7 @@ mapw('nl', 'workbench.action.newGroupRight')
 mapw('u', 'workbench.action.joinAllGroups') --  (u)nite all groups
 mapw('w', 'workbench.action.navigateEditorGroups')
 mapw('z', 'workbench.action.toggleEditorWidths') --  (z)oom in/out or maximi(z)e
-mapw('Z', 'workbench.action.maximizeEditor') --  like zoom but gets rid of Primary Bar
+mapw('Z', 'workbench.action.maximizeEditorHideSidebar') --  like zoom but gets rid of Primary Bar
 mapw('=', 'workbench.action.evenEditorWidths')
 
 -- [[ CODE ]] ----------------------------------------------------------------------------------------------------------
@@ -149,7 +149,7 @@ mapi('p', 'workbench.actions.view.problems')
 -- Bindings specific to the VSCode application. VSCode seems to use Ctrl+K a lot
 -- Other editor-agnostic toggle keybinds go in '<Leader>t'
 local mapk = function(key, cmd)
-  map.set('n', '<Plug>(leader-kustom-map)' .. key, '<Cmd>call VSCodeNotify("' .. cmd .. '")<CR>', { remap = true })
+  map.set('n', '<Plug>(leader-kustomize-map)' .. key, '<Cmd>call VSCodeNotify("' .. cmd .. '")<CR>', { remap = true })
 end
 
 mapk('b', 'workbench.action.toggleSidebarVisibility')
